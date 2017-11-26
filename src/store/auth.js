@@ -2,13 +2,10 @@ import {
     fetch,
     secure
 } from '../util';
-import {
-    protocol,
-    server
-} from '../config';
+import config from '../config';
 
 const api = {
-    register: `${protocol}://${server}/auth/register`
+    register: `${config.protocol}://${config.server}/auth/register`
 }
 
 const actions = {
@@ -16,11 +13,11 @@ const actions = {
 }
 
 export const actionsCreator = {
-    attempLogin: ({
+    attempLogin: () => ({
         type: actions.attempLogin
     }),
     login: (data) => (dispatch) => {
-        dispatch(this.attempLogin());
+        dispatch(actionsCreator.attempLogin());
         return new Promise((resolve, reject) => {
             fetch(api.register, {
                     headers: {
@@ -35,23 +32,30 @@ export const actionsCreator = {
                 .catch((err) => {
                     secure(reject)(err);
                 })
-            });
+        });
     },
-    attempRegister: ({
+    attempRegister: () => ({
         type: actions.attempLogin
     }),
     register: (data) => (dispatch) => {
-        dispatch(this.attempRegister());
+        dispatch(actionsCreator.attempRegister());
+        console.log(api.register, data);
         return new Promise((resolve, reject) => {
             fetch(api.register, {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(data)
                 })
-                .then((response) => response.json())
                 .then((response) => {
-                    secure(resolve)(err);
+                    return response.json()
+                        .then((data) => {
+                            if (!response.ok)
+                                throw new Error(data.message);
+                            console.log('info:', response);
+                            secure(resolve)(response);
+                        });
                 })
                 .catch((err) => {
                     secure(reject)(err);

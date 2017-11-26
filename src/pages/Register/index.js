@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     Container,
     Content,
@@ -32,7 +32,7 @@ const mapProps = (state) => ({
 
 });
 
-class _ extends Component {
+class _ extends PureComponent {
     state = {
         name: "julio",
         lastname: "torres",
@@ -47,7 +47,10 @@ class _ extends Component {
         });
     }
     handleRegister = () => {
-        console.log("alert");
+        this.props.register(this.state)
+            .catch((error) => {
+                console.log('error:', error);
+            });
     }
     render() {
         const { props } = this;
