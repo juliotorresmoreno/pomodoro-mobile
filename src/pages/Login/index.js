@@ -9,8 +9,10 @@ import {
     Input,
     View
 } from 'native-base';
+import { actionsCreator } from '../../store/auth';
 import { StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
+import { connect } from 'react-redux';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
@@ -25,10 +27,33 @@ const styles = StyleSheet.create({
     }
 });
 
-export default class Login extends Component {
+const mapProps = (state) => ({
+
+});
+
+class Login extends Component {
+    state = {
+        username: "jtorres990",
+        password: "123456"
+    }
     handleRegister = () => this.props.history.push('/register');
+    handleChangeText = (name) => (value) => {
+        this.setState({
+            [name]: value
+        });
+    }
+    handleLogin = () => {
+        this.props.login(this.state)
+            .then(() => {
+                this.props.history.push("/");
+            })
+            .catch((error) => {
+                console.log('error:', error);
+            });
+    }
     render() {
-        const {props} = this;
+        const { props } = this;
+        const { username, password } = this.state;
         return (
             <Container>
                 <Header />
@@ -36,15 +61,20 @@ export default class Login extends Component {
                     <Content>
                         <Form>
                             <Item>
-                                <Input placeholder="Usuario" />
+                                <Input
+                                    placeholder="Usuario" value={username}
+                                    onChangeText={this.handleChangeText('username')} />
                             </Item>
-                            <Item last>
-                                <Input placeholder="Contraseña" last />
+                            <Item>
+                                <Input
+                                    secureTextEntry value={password}
+                                    placeholder="Contraseña"
+                                    onChangeText={this.handleChangeText('password')} />
                             </Item>
+                            <Button onPress={this.handleLogin} style={{ width: '100%' }}>
+                                <Text style={{ textAlign: 'center', width: '100%' }}>Entrar</Text>
+                            </Button>
                         </Form>
-                        <Button style={{ width: '100%' }}>
-                            <Text style={{ textAlign: 'center', width: '100%' }}>Entrar</Text>
-                        </Button>
                     </Content>
                 </View>
                 <Footer {...props} />
@@ -52,3 +82,5 @@ export default class Login extends Component {
         );
     }
 }
+
+export default connect(mapProps, actionsCreator)(Login);

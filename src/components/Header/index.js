@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-import { 
-    Header, 
-    Title, 
-    Button, 
-    Left, 
-    Right, 
-    Body, 
-    Icon, 
+import {
+    Header as HeaderNB,
+    Title,
+    Button,
+    Body,
+    Icon, Text
 } from 'native-base';
 
-export default class _ extends Component {
-    render() {
-        return (
-            <Header>
-                <Body>
-                    <Title>Pomoro</Title>
-                </Body>
-            </Header>
-        );
-    }
+const Header = ({ right: Right = () => false }) => {
+    return (
+        <HeaderNB>
+            <Body>
+                <Title>Pomoro</Title>
+            </Body>
+            <Right />
+        </HeaderNB>
+    );
 }
+
+export default Header;

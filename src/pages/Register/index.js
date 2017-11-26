@@ -32,7 +32,7 @@ const mapProps = (state) => ({
 
 });
 
-class _ extends PureComponent {
+class Register extends PureComponent {
     state = {
         name: "julio",
         lastname: "torres",
@@ -48,6 +48,9 @@ class _ extends PureComponent {
     }
     handleRegister = () => {
         this.props.register(this.state)
+            .then(() => {
+                this.props.history.push("/");
+            })
             .catch((error) => {
                 console.log('error:', error);
             });
@@ -91,10 +94,10 @@ class _ extends PureComponent {
                                     placeholder="Confirmar contraseña"
                                     onChangeText={this.handleChangeText('password_confirmation')} />
                             </Item>
+                            <Button onPress={this.handleRegister} style={{ width: '100%' }}>
+                                <Text style={{ textAlign: 'center', width: '100%' }}>Registrate</Text>
+                            </Button>
                         </Form>
-                        <Button onPress={this.handleRegister} style={{ width: '100%' }}>
-                            <Text style={{ textAlign: 'center', width: '100%' }}>Registrate</Text>
-                        </Button>
                     </Content>
                 </View>
                 <Footer {...props} />
@@ -103,4 +106,4 @@ class _ extends PureComponent {
     }
 }
 
-export default connect(mapProps, actionsCreator)(_);
+export default connect(mapProps, actionsCreator)(Register);
