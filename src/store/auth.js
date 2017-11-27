@@ -26,7 +26,6 @@ export const actionsCreator = {
     login: (data) => (dispatch) => {
         dispatch(actionsCreator.attempLogin());
         return new Promise((resolve, reject) => {
-            console.log(api.login)
             fetch(api.login, {
                 method: 'POST',
                 headers: {

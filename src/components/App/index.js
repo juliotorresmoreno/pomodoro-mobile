@@ -11,10 +11,9 @@ const App = (props) => {
         <Suscribe>
             <NativeRouter>
                 <Container>
-                    <Route path="/" component={Tasks} exact />
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
-                    <Route path="/tasks" component={Tasks} />
+                    <Route path="/" component={Tasks} />
                 </Container>
             </NativeRouter>
         </Suscribe>

@@ -34,7 +34,7 @@ class Suscribe extends Component {
             this.intent = 0;
         }
         conn.onmessage = (message) => {
-            store.dispatch(JSON.stringify(message.data));
+            store.dispatch(JSON.parse(message.data));
         }
         conn.onclose = () => {
             this.intent = this.intent + 1;

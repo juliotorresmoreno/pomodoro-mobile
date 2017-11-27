@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import {
-    Container,
-    Content,
-    Button,
-    Text,
-    Form,
-    Item,
-    Input,
-    View
+    Container, Content, Button,
+    Text, Form, Item, Input,
+    View, Label
 } from 'native-base';
 import { actionsCreator } from '../../store/auth';
 import { StyleSheet } from 'react-native';
@@ -48,7 +43,7 @@ class Login extends Component {
                 this.props.history.push("/");
             })
             .catch((error) => {
-                console.log('error:', error);
+                //console.log('error:', error);
             });
     }
     render() {
@@ -60,15 +55,16 @@ class Login extends Component {
                 <View style={styles.content}>
                     <Content>
                         <Form>
-                            <Item>
+                            <Item floatingLabel>
+                                <Label>Usuario</Label>
                                 <Input
-                                    placeholder="Usuario" value={username}
+                                    value={username}
                                     onChangeText={this.handleChangeText('username')} />
                             </Item>
-                            <Item>
+                            <Item floatingLabel>
+                                <Label>Contraseña</Label>
                                 <Input
                                     secureTextEntry value={password}
-                                    placeholder="Contraseña"
                                     onChangeText={this.handleChangeText('password')} />
                             </Item>
                             <Button onPress={this.handleLogin} style={{ width: '100%' }}>

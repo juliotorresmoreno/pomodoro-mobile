@@ -1,13 +1,8 @@
 import React, { PureComponent } from 'react';
 import {
-    Container,
-    Content,
-    Button,
-    Text,
-    Form,
-    Item,
-    Input,
-    View
+    Container, Content, Button,
+    Text, Form, Item, Input,
+    View, Label
 } from 'native-base';
 import { TextInput } from 'react-native';
 import { StyleSheet } from 'react-native';
@@ -52,7 +47,7 @@ class Register extends PureComponent {
                 this.props.history.push("/");
             })
             .catch((error) => {
-                console.log('error:', error);
+                //console.log('error:', error);
             });
     }
     render() {
@@ -64,34 +59,35 @@ class Register extends PureComponent {
                 <View style={styles.content}>
                     <Content>
                         <Form>
-                            <Item>
+                            <Item floatingLabel>
+                                <Label>Nombres</Label>
                                 <Input
-                                    value={name} placeholder="Nombres"
+                                    value={name} 
                                     onChangeText={this.handleChangeText('name')} />
                             </Item>
-                            <Item>
+                            <Item floatingLabel>
+                                <Label>Apellidos</Label>
                                 <Input
-                                    placeholder="Apellidos"
                                     name="lastname" value={lastname}
                                     onChangeText={this.handleChangeText('lastname')} />
                             </Item>
-                            <Item>
+                            <Item floatingLabel>
+                                <Label>Usuario</Label>
                                 <Input
-                                    placeholder="Usuario"
                                     name="username" value={username}
                                     onChangeText={this.handleChangeText('username')} />
                             </Item>
-                            <Item>
+                            <Item floatingLabel>
+                                <Label>Contraseña</Label>
                                 <Input
                                     secureTextEntry value={password}
-                                    placeholder="Contraseña"
                                     onChangeText={this.handleChangeText('password')} />
                             </Item>
-                            <Item>
+                            <Item floatingLabel>
+                                <Label>Confirmar contraseña</Label>
                                 <Input
                                     last secureTextEntry
                                     value={password_confirmation}
-                                    placeholder="Confirmar contraseña"
                                     onChangeText={this.handleChangeText('password_confirmation')} />
                             </Item>
                             <Button onPress={this.handleRegister} style={{ width: '100%' }}>

@@ -23,10 +23,10 @@ export default class Footer extends Component {
         return (
             <FooterNativeBase>
                 <FooterTab>
-                    <Button full disabled={!tab} onPress={this.handleLogin}>
+                    <Button full onPress={this.handleLogin}>
                         <Text>Login</Text>
                     </Button>
-                    <Button full disabled={tab} onPress={this.handleRegister}>
+                    <Button full onPress={this.handleRegister}>
                         <Text>Registrate</Text>
                     </Button>
                 </FooterTab>
