@@ -9,7 +9,8 @@ const api = {
     stop: `${config.protocol}://${config.server}/tasks/stop`,
     start: `${config.protocol}://${config.server}/tasks/start`,
     delete: `${config.protocol}://${config.server}/tasks`,
-    register: `${config.protocol}://${config.server}/tasks/new`
+    register: `${config.protocol}://${config.server}/tasks/new`,
+    statistics: `${config.protocol}://${config.server}/tasks/statistics`
 }
 
 const actions = {
@@ -19,7 +20,9 @@ const actions = {
     attempStop: '@tasks/attempStop',
     attempStart: '@tasks/attempStart',
     attempDelete: '@tasks/attempDelete',
-    attempRegister: '@tasks/attempRegister'
+    setStatistics: '@tasks/setStatistics',
+    attempRegister: '@tasks/attempRegister',
+    attempStatistics: '@tasks/attempStatistics'
 }
 
 export const actionsCreator = {
@@ -154,16 +157,55 @@ export const actionsCreator = {
                     secure(reject)(err);
                 })
         })
+    },
+    setStatistics: (data) => ({
+        type: actions.setStatistics,
+        data: data
+    }),
+    attempStatistics: () => ({
+        type: actions.attempStatistics
+    }),
+    statistics: () => (dispatch, getState) => {
+        const { token } = getState().auth.session;
+        dispatch(actionsCreator.attempStatistics());
+        return new Promise((resolve, reject) => {
+            fetch(`${api.statistics}?token=${token}`, {
+                method: 'GET'
+            })
+                .then((response) => {
+                    return response.json()
+                        .then((data) => {
+                            if (!response.ok)
+                                throw new Error(data.message);
+                            dispatch(actionsCreator.setStatistics([data.data]));
+                            secure(resolve)(response);
+                        });
+                })
+                .catch((err) => {
+                    secure(reject)(err);
+                })
+        })
     }
 }
 
 const defaultState = {
     session: false,
-    data: []
+    data: [],
+    statistics: [
+        [{
+            "v": 50,
+            "name": "wait"
+        }, {
+            "v": 50,
+            "name": "completed"
+        }]
+    ]
 }
 
 export default (state = defaultState, action) => {
     switch (action.type) {
+        case actions.setStatistics:
+            return { ...state, statistics: action.data };
         case actions.setSession:
             return { ...state, session: action.session };
         case actions.setList:

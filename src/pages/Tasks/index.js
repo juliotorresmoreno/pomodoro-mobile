@@ -36,7 +36,7 @@ export default class Tasks extends PureComponent {
                         <Route path="/tasks" component={List} exact />
                         <Route path="/tasks/new" component={Form} exact />
                         <Route path="/tasks/:id" component={Manage} exact />
-                        <Route path="/statistics" component={Statistics} exact />
+                        <Route path="/statistics" component={Statistics} />
                     </Switch>
                     <Footer>
                         <FooterTab>

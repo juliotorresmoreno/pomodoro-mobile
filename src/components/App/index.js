@@ -1,5 +1,5 @@
 import React from 'react'
-import { NativeRouter, Route, Link } from 'react-router-native';
+import { NativeRouter, Route, Link, Switch } from 'react-router-native';
 import { Container, Text } from 'native-base';
 import Suscribe from '../../components/Suscribe';
 import Login from '../../pages/Login';
@@ -11,9 +11,11 @@ const App = (props) => {
         <Suscribe>
             <NativeRouter>
                 <Container>
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/" component={Tasks} />
+                    <Switch>
+                        <Route path="/login" component={Login} />
+                        <Route path="/register" component={Register} />
+                        <Route path="/" component={Tasks} />
+                    </Switch>
                 </Container>
             </NativeRouter>
         </Suscribe>
