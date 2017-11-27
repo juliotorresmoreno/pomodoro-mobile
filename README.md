@@ -2,6 +2,9 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
+## Como usar
+una vez se hayan instalado las dependencias deberas modificar el archivo src/config/index.js para configurar la url del servidor.
+
 ## Table of Contents
 
 * [Updating to New Releases](#updating-to-new-releases)
